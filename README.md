@@ -1,4 +1,4 @@
-#Maxconnect Build Tool
+#Static Build Tool
 
 This builder is made to help create a pegboard skin employing the DRY concept of coding.
 
