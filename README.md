@@ -1,62 +1,67 @@
 #Static Build Tool
 
-This builder is made to help create a pegboard skin employing the DRY concept of coding.
+This builder is made to help create a static sites employing the DRY concept of coding.
 
 ##Setup in terminal
 - `sudo npm install` *can take a few mins*
 - `sudo bower install`
 - `gulp`
-- upload the `render/` folder to the skins folder in pegboard
+- upload the `render/` is your file site
 
 ##Assets 
 - found under `cwd/assets/*` 
 - convert to `render/assets/*`
 
 ##HTML
-Using the same structure for pegboard.
-- Layouts
-- Pages
-- Collections
-- Emails
-- Forms
+Using what ever structure you want just update the gulp js file.
 
 ##Frameworks 
 - [Bower](http://bower.io/)
 - [gulpjs](http://gulpjs.com/)
-- [sass](sass link here)
+- [Sass](http://sass-lang.com/)
 - [Npm](https://www.npmjs.com/)
 - [Nodejs](https://nodejs.org/)
 
 
 ###Includes
 found under `cwd/includes` set as base for includes here is some example include code
+
 ```
 			@@include('h1.html',{
                 "text": "Hello World"
-                })
+                });
 ``` 
+
+
 Html includes allow variables like so this would be `h1.html`
+
+
 ```html
 <h1>@@text</h1>
 ```
-This would render
+
+this would render
+
+
 ```html
 <h1>Hello World</h1>
 ```
 
-##Less
-bootstrap less files and your less files are concatnated from
-`cwd/assets/less/*.less`
-`bower_components/less/*less` = `render/skin.css`
+##Sass
+bootstrap sass files and your less files are concatnated from
+
+- `cwd/assets/sass/*.less`
+- `bower_components/sass/*less` = `render/skin.css`
+
 ##Js
 bootstrap js files and your js files are concatnated from
-`cwd/assets/js/*.js`
-`bower_components/js/*js` = `render/skin.css`
+
+- `cwd/assets/js/*.js`
+-`bower_components/js/*js` = `render/skin.css`
 
 
 ##Gulp
 ###Commands
-<<<<<<< HEAD
 Only 1 command so far `gulp`
 *more coming soon*
 
@@ -67,6 +72,3 @@ Install node.js (windows, linux, mac)
 - gulp
 - gulp watch
 Dependiences
-
-=======
- - `gulp` 
