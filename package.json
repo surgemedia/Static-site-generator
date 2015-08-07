@@ -1,5 +1,5 @@
 {
-  "name": "Static Build Tool",
+  "name": "Static-Build-Tool",
   "version": "0.1.0",
   "description": "",
   "main": "gulpfile.js",
