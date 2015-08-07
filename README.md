@@ -21,28 +21,11 @@ Using the same structure for pegboard.
 - Forms
 
 ##Frameworks 
-- [Razor](http://www.asp.net/web-pages/overview/getting-started/introducing-razor-syntax-(c))
 - [Bower](http://bower.io/)
 - [gulpjs](http://gulpjs.com/)
-- [less](http://lesscss.org/)
+- [sass](sass link here)
 - [Npm](https://www.npmjs.com/)
 - [Nodejs](https://nodejs.org/)
-
-##Naming convertions
-```less
-/* Html include */
-includes/collections/jobs/card-job-item.html
-
-/* Less include */
-less/collections/jobs/card-job-item.less
-
-/* Less structure */
-.card {
-	h1 { color:white }
-}
-``` 
-
-
 
 
 ###Includes
@@ -76,31 +59,14 @@ bootstrap js files and your js files are concatnated from
 <<<<<<< HEAD
 Only 1 command so far `gulp`
 *more coming soon*
-###Deps
-    "gulp-concat": "^2.5.2",
-    "gulp-minify-css": "^1.0.0",
-    "del": "^1.1.1",
-    "gulp-jshint": "^1.9.4",
-    "gulp-uglify": "^1.1.0",
-With more enhancements to come.
-
-###Additional Information 
 
 ###Installation Progress###
 Install node.js (windows, linux, mac)
-
-- npm install bower
-- bower install
 - npm install
-- npm install clean-css
-
+- bower install
+- gulp
+- gulp watch
 Dependiences
-
-
 
 =======
  - `gulp` 
- - `gulp prod` (minifies & compresses)
-
-##Homepage Design
-![Home Page Desing](https://dl.dropboxusercontent.com/u/15590155/Home-PJF160-D1.png)
