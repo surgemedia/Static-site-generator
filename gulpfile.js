@@ -32,12 +32,15 @@ var
 var sass_files = [
     'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss',
     'cwd/assets/sass/*.sass'
-    ]
+    ];
 var html_files = [
     'render/templates/pages/*.html',
     'render/templates/layouts/*.html'
-]
-
+];
+var fonts = [
+        'bower_components/bootstrap-sass-official/assets/fonts/*',
+        'cwd/assets/fonts/*'
+    ];
 
 var onError = function (err) {  
   gutil.beep();
@@ -49,7 +52,7 @@ var onError = function (err) {
 ======================================*/
 
 
-//TODO make loop based on html_files
+//TODO make loop based on html_files array
 gulp.task('include', function() {
   gulp.src(['cwd/templates/pages/*'])
     .pipe(plumber())
@@ -172,32 +175,6 @@ gulp.task('imagemin', function() {
         .pipe(size({showFiles: true}));
 });
 
-/*=====================================
-=            PJF Minifying            =
-=====================================*/
-
-gulp.task('minify-js', function() {
-  return gulp.src('render/assets/js/main.js')
-  .pipe(uglify())
-  .pipe(debug({title: 'minify-js:'}))
-  .pipe(gulp.dest('render/assets/js/'))
-  .pipe(gulp.dest('../PersonJobFit/PersonJobFit.Web2/scripts/'));
-});
-
-gulp.task('minify-css', function() {
-    return gulp.src('render/skin.css')
-   .pipe(minifyCSS({keepBreaks:false}))
-   .pipe(gulp.dest('render/'));
-});
-
-gulp.task('imagemin', function() {
-   return gulp.src('cwd/assets/images/*')
-        .pipe(cache(imagemin({ optimizationLevel: 5, progressive: true, interlaced: true }))) 
-        .pipe(gulp.dest('render/assets/images/'))
-       .pipe(gulp.dest('../PersonJobFit/PersonJobFit.Web2/assets/images/'))
-        .pipe(size({showFiles: true}));
-});
-
 
 /*============================================
 =            Production Minifying            =
@@ -242,6 +219,7 @@ gulp.task('html-lint', function () {
 =      Accesiblily Role - WIP          =
 ======================================*/
 
+//Optional
 gulp.task('aria', function () {
     gulp.src('render/**/*.html')
       .pipe(arialinter({
@@ -258,7 +236,7 @@ gulp.task('watcher', ['include', 'sass', 'js', 'imagemin','fonts'], function() {
 
     browserSync({
         server: "./render/",
-        index: "/"
+        index: "/templates/pages/index.html"
     });
 
    gulp.watch("cwd/assets/sass/*.sass", ['sass']).on('error', gutil.log);
@@ -271,19 +249,12 @@ gulp.task('watcher', ['include', 'sass', 'js', 'imagemin','fonts'], function() {
 /*===============================
 =           Move Folders         =
 ===============================*/
-
-var fonts = [
-        'bower_components/bootstrap/fonts/*',
-        'cwd/fonts/*'
-    ];
-
 gulp.task('fonts', function(){
   // the base option sets the relative root for the set of files,
   // preserving the folder structure
   gulp.src(fonts)
-  .pipe(gulp.dest('render/fonts'));
+  .pipe(gulp.dest('render/assets/fonts'));
 });
-
 
 /*======================================
 =            Cleaner Calls             =
@@ -306,4 +277,5 @@ gulp.task('fonts', function(){
 gulp.task('default', ['include', 'sass', 'js', 'imagemin','fonts', 'html-lint']);
 gulp.task('watch', ['watcher']);
 
+//NEEDS TIDYING
 //gulp.task('prod', ['include-production', 'production-js', 'production-imagemin', 'production-minify-js', 'less-production', 'production-minify-css', 'production-fonts']);
