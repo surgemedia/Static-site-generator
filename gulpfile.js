@@ -29,13 +29,13 @@ var
     reload = browserSync.reload,
     supportedBrowser = ['last 2 versions', 'ie 10', 'ie 11', 'android 2.3', 'android 4','opera 12'];
 
-var sass_files = [
+    var sass_files = [
     'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss',
     'bower_components/bootstrap-sass-datapicker/assets/sass/datepicker.scss',
-    'cwd/assets/sass/*.sass'
+    'cwd/assets/sass/*.scss'
     ];
+    
 var html_files = [
-    'render/templates/pages/*.html',
     'render/templates/layouts/*.html'
 ];
 var fonts = [
@@ -136,12 +136,10 @@ gulp.task('js', function() {
 gulp.task('sass', function() {
    return gulp.src(sass_files)
    .pipe(concat('skin.css'))
-
-  .pipe(sass().on('error', function(err){
-        gutil.log(err);
-        this.emit('end');
+  .pipe(sass({
+    includePaths: ['cwd/assets/sass/','bower_components/bootstrap-sass-official/assets/stylesheets/'],
+    errLogToConsole: true
     }))
-
    .pipe(autoprefixer({
             browsers: supportedBrowser,
             cascade: false
@@ -238,10 +236,10 @@ gulp.task('watcher', ['include', 'sass', 'js', 'imagemin','fonts'], function() {
 
     browserSync({
         server: "./render/",
-        index: "/templates/pages/index.html"
+        index: "/templates/layouts/default.html"
     });
 
-   gulp.watch("cwd/assets/sass/*.sass", ['sass']).on('error', gutil.log);
+   gulp.watch("cwd/assets/sass/*.scss", ['sass']).on('error', gutil.log);
    gulp.watch("cwd/**/*.html", ['include']);
    gulp.watch("cwd/assets/images/*", ['imagemin']);
    gulp.watch("cwd/assets/js/*.js", ['js']);
@@ -276,7 +274,7 @@ gulp.task('fonts', function(){
 =====================================*/
 
 
-gulp.task('default', ['include', 'sass', 'js', 'imagemin','fonts', 'html-lint']);
+gulp.task('default', ['include', 'sass', 'js', 'imagemin','fonts']);
 gulp.task('watch', ['watcher']);
 
 //NEEDS TIDYING
