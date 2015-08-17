@@ -236,7 +236,7 @@ gulp.task('watcher', ['include', 'sass', 'js', 'imagemin','fonts'], function() {
 
     browserSync({
         server: "./render/",
-        index: "/templates/layouts/default.html"
+        index: "/templates/layouts/index.html"
     });
 
    gulp.watch("cwd/assets/sass/*.scss", ['sass']).on('error', gutil.log);
