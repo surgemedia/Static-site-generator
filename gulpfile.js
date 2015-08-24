@@ -27,8 +27,12 @@ var gulp = require('gulp'),
     plumber = require('gulp-plumber'),
     reload = browserSync.reload,
     supportedBrowser = ['last 2 versions', 'ie 10', 'ie 11', 'android 2.3', 'android 4', 'opera 12'];
-var sass_files = ['bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss', 'bower_components/bootstrap-sass-datapicker/assets/sass/datepicker.scss', 'cwd/assets/sass/*.scss'];
-var html_files = ['render/templates/layouts/*.html'];
+ var sass_files = [
+    'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss',
+    'bower_components/bootstrap-sass-datapicker/assets/sass/datepicker.scss',
+    'cwd/assets/sass/all.scss'
+    ];
+var html_files = ['render/templates/**/*.html'];
 var fonts = ['bower_components/bootstrap-sass-official/assets/fonts/*', 'cwd/assets/fonts/*'];
 var onError = function(err) {
     gutil.beep();
@@ -40,7 +44,7 @@ var onError = function(err) {
 ======================================*/
 gulp.task('include', function() {
     
-    gulp.src(['cwd/templates/**/*.html']).pipe(plumber()).pipe(fileinclude({
+    gulp.src(['cwd/templates/**/*.html,cwd/templates/**/**/*.html']).pipe(plumber()).pipe(fileinclude({
         prefix: '@@',
         basepath: 'cwd/includes/'
     })).pipe(gulp.dest('./render/templates/')).pipe(reload({
