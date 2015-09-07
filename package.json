@@ -27,6 +27,7 @@
     "gulp-cache": "^0.2.8",
     "gulp-concat": "^2.5.2",
     "gulp-file-include": "^0.8.0",
+    "gulp-html-tag-include": "git://github.com/stagfoo/gulp-html-tag-include#master",
     "gulp-imagemin": "^2.2.1",
     "gulp-jshint": "^1.9.4",
     "gulp-sass": "*",

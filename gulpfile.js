@@ -56,8 +56,10 @@ gulp.task('include', function() {
 =            Convert JS         =
 ======================================*/
 var all_js = mainBowerFiles();
+//add function to filter our scss/less/css
+console.log('BEWARE OF BOOSTRAP SASS IN YOUR JS')
 all_js.push('cwd/assets/js/main.js');
-console.log(all_js);
+//console.log(all_js);
 gulp.task('js', function() {
     return gulp.src(all_js).pipe(concat('main.js', {
         newLine: ' '
