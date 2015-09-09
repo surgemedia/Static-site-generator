@@ -1,4 +1,7 @@
 #Static Build Tool
+```
+WARNING ISSUE WITH BOOTSTRAP SASS IS CAUSING SCSS IN JS FILES, REMOVE SCSS FROM BOOTSTRAP BOWER TEMP FIX
+```
 
 This builder is made to help create a static sites employing the DRY concept of coding.
 
