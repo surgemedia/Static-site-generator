@@ -17,7 +17,9 @@
   },
   "homepage": "http://www.surgemedia.com.au/",
   "devDependencies": {
-    "gulp-arialinter": "0.0.1"
+    "gulp-arialinter": "0.0.1",
+    "gulp-file-list-saver": "^1.0.1",
+    "gulp-html-tag-include": "git://github.com/stagfoo/gulp-html-tag-include"
   },
   "dependencies": {
     "del": "^1.1.1",
@@ -27,7 +29,6 @@
     "gulp-cache": "^0.2.8",
     "gulp-concat": "^2.5.2",
     "gulp-file-include": "^0.8.0",
-    "gulp-html-tag-include": "git://github.com/stagfoo/gulp-html-tag-include#master",
     "gulp-imagemin": "^2.2.1",
     "gulp-jshint": "^1.9.4",
     "gulp-sass": "*",

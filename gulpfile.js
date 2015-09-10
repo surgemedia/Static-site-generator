@@ -1,6 +1,7 @@
 'use strict';
 var gulp = require('gulp'),
     fileinclude = require('gulp-file-include'),
+    includehtml = require('gulp-html-tag-include'),
     del = require('del'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
@@ -21,18 +22,24 @@ var gulp = require('gulp'),
     browserSync = require('browser-sync'),
     debug = require('gulp-debug'),
     size = require('gulp-size'),
+    fileList = require('gulp-file-list-saver'),
     notify = require('gulp-notify'),
     gutil = require('gulp-util'),
     cached = require('gulp-cached'),
     plumber = require('gulp-plumber'),
     reload = browserSync.reload,
     supportedBrowser = ['last 2 versions', 'ie 10', 'ie 11', 'android 2.3', 'android 4', 'opera 12'];
- var sass_files = [
+ 
+//This helps you with concatination Sass files in order
+var sass_files = [
     'bower_components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss',
     'bower_components/bootstrap-sass-datapicker/assets/sass/datepicker.scss',
     'cwd/assets/sass/all.scss'
     ];
+//This is used for HTML Lint
 var html_files = ['render/templates/**/*.html'];
+
+//This is used to Move fonts into the correct folder
 var fonts = ['bower_components/bootstrap-sass-official/assets/fonts/*', 'cwd/assets/fonts/*'];
 var onError = function(err) {
     gutil.beep();
@@ -42,24 +49,36 @@ var onError = function(err) {
 /*======================================
 =            HTML - includes          =
 ======================================*/
+
 gulp.task('include', function() {
-    
-    gulp.src(['cwd/templates/**/*.html,cwd/templates/**/**/*.html']).pipe(plumber()).pipe(fileinclude({
-        prefix: '@@',
-        basepath: 'cwd/includes/'
-    })).pipe(gulp.dest('./render/templates/')).pipe(reload({
+    gulp.src(['cwd/templates/**/*.html']).pipe(plumber()).pipe(includehtml({basePath: 'cwd/includes'})).pipe(gulp.dest('./render/templates/')).pipe(reload({
         stream: true
     }));
    
 });
+
+
+/*=============================================
+=         Template File Listing  WIP          =
+=============================================*/
+gulp.task('create-index', function() {
+return gulp
+ .src('render/templates/**/*.html')
+ .pipe(fileList('', 'render/template-list.json'))
+});
+
+
 /*======================================
 =            Convert JS         =
 ======================================*/
 var all_js = mainBowerFiles();
-//add function to filter our scss/less/css
-console.log('BEWARE OF BOOSTRAP SASS IN YOUR JS')
+//This removes all CSS from mainBowerFiles - to add css use the array at the top of the doc
+for (var i = all_js.length - 1; i >= 0; i--) {
+     if ( all_js[i].indexOf('.scss') > 0 ||  all_js[i].indexOf('.sass') > 0 ||  all_js[i].indexOf('.css') > 0 ) { 
+    all_js.splice(i, 1); } 
+};
+//Concat JS into one file
 all_js.push('cwd/assets/js/main.js');
-//console.log(all_js);
 gulp.task('js', function() {
     return gulp.src(all_js).pipe(concat('main.js', {
         newLine: ' '
@@ -143,7 +162,7 @@ gulp.task('html-lint', function() {
 ======================================*/
 //Optional
 gulp.task('aria', function() {
-    gulp.src('render/**/*.html').pipe(arialinter({
+    gulp.src('render/**/**/*.html').pipe(arialinter({
         level: 'AA'
     })).pipe(gulp.dest('render/'));
 });
@@ -156,9 +175,10 @@ gulp.task('watcher', ['include', 'sass', 'js', 'imagemin', 'fonts'], function() 
         index: "/templates/layouts/index.html"
     });
     gulp.watch("cwd/assets/sass/*.scss", ['sass']).on('error', gutil.log);
-    gulp.watch("cwd/**/*.html", ['include']);
+    gulp.watch("cwd/**/**/*.html", ['include']);
     gulp.watch("cwd/assets/images/*", ['imagemin']);
     gulp.watch("cwd/assets/js/*.js", ['js']);
+    //gulp.watch("render/templates/**/*.html",['html-lint']);
 });
 /*===============================
 =           Move Folders         =
