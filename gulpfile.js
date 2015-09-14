@@ -94,11 +94,10 @@ gulp.task('js', function() {
 gulp.task('sass', function() {
     return gulp.src(sass_files).pipe(concat('skin.css')).pipe(sass({
         includePaths: ['cwd/assets/sass/', 'bower_components/bootstrap-sass-official/assets/stylesheets/'],
-        errLogToConsole: true
     })).pipe(autoprefixer({
         browsers: supportedBrowser,
         cascade: false
-    })).pipe(gulp.dest('render/')).pipe(reload({
+    })).pipe(plumber()).pipe(gulp.dest('render/')).pipe(reload({
         stream: true
     }))
 });
@@ -149,13 +148,15 @@ gulp.task('production-imagemin', function() {
 /*=====================================
 =        Testing Tasks  w3c ,js       =
 =====================================*/
-gulp.task('html-lint', function() {
-    gulp.src(html_files).pipe(w3cjs()).pipe(through2.obj(function(file, enc, cb) {
-        cb(null, file);
-        if (!file.w3cjs.success) {
-            throw new Error('HTML validation error(s) found');
-        }
-    }));
+gulp.task('html-lint', function () {
+    gulp.src('render/**/**/*.html')
+        .pipe(w3cjs())
+        .pipe(through2.obj(function(file, enc, cb){
+            cb(null, file);
+            if (!file.w3cjs.success){
+                throw new Error('HTML validation error(s) found');
+            }
+        }));
 });
 /*======================================
 =      Accesiblily Role - WIP          =
