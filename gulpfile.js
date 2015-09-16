@@ -72,6 +72,7 @@ return gulp
 =            Convert JS         =
 ======================================*/
 var all_js = mainBowerFiles();
+
 //This removes all CSS from mainBowerFiles - to add css use the array at the top of the doc
 for (var i = all_js.length - 1; i >= 0; i--) {
      if ( all_js[i].indexOf('.scss') > 0 ||  all_js[i].indexOf('.sass') > 0 ||  all_js[i].indexOf('.css') > 0 ) { 
@@ -79,6 +80,11 @@ for (var i = all_js.length - 1; i >= 0; i--) {
 };
 //Concat JS into one file
 all_js.push('cwd/assets/js/main.js');
+all_js.push('cwd/assets/js/nav-fixed.js');
+all_js.push('cwd/assets/js/loginmodal_with_effect.js');
+
+
+
 gulp.task('js', function() {
     return gulp.src(all_js).pipe(concat('main.js', {
         newLine: ' '
