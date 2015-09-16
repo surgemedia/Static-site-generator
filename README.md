@@ -70,9 +70,11 @@ Concatenates to
 - `render/skin.css`
 
 ##Js 
-bootstrap js files and your js files are concatnated from 
-- `cwd/assets/js/*.js` 
--`bower_components/js/*js` = `render/skin.css`
+In `bower.json` setup any js you want included in your project and they will be concatenated along with main.js in the asset folder.
+- `cwd/assets/js/main.js`
+
+After concat
+- `render/assets/js/main.js`
 
 ##Gulp Commands 
 `gulp` does a fresh build of the render folder
