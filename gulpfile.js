@@ -40,7 +40,7 @@ var sass_files = [
 var html_files = ['render/templates/**/*.html'];
 
 //This is used to Move fonts into the correct folder
-var fonts = ['bower_components/bootstrap-sass-official/assets/fonts/*', 'cwd/assets/fonts/*'];
+var fonts = ['bower_components/bootstrap-sass-official/assets/fonts/**/*', 'cwd/assets/fonts/*'];
 var onError = function(err) {
     gutil.beep();
     console.log(err);
